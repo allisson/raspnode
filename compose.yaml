@@ -1,0 +1,98 @@
+services:
+  vaultwarden-ts:
+    image: tailscale/tailscale:stable
+    container_name: vaultwarden-ts
+    hostname: homelab-password
+    environment:
+      TS_AUTHKEY: ${TS_AUTHKEY}
+      TS_SERVE_CONFIG: /config/vaultwarden.json
+      TS_STATE_DIR: /var/lib/tailscale
+    volumes:
+      - ./app-config/vaultwarden-ts:/config
+      - ./app-data/vaultwarden-ts:/var/lib/tailscale
+    cap_add:
+      - net_admin
+      - sys_module
+    restart: unless-stopped
+  vaultwarden:
+    image: vaultwarden/server:latest-alpine
+    container_name: vaultwarden
+    network_mode: service:vaultwarden-ts
+    depends_on:
+      - vaultwarden-ts
+    restart: unless-stopped
+    environment:
+      DOMAIN: https://homelab-password.${TS_DOMAIN}
+    volumes:
+      - ./app-data/vaultwarden/:/data/
+  portainer-ts:
+    image: tailscale/tailscale:stable
+    container_name: portainer-ts
+    hostname: homelab-docker
+    environment:
+      TS_AUTHKEY: ${TS_AUTHKEY}
+      TS_SERVE_CONFIG: /config/portainer.json
+      TS_STATE_DIR: /var/lib/tailscale
+    volumes:
+      - ./app-config/portainer-ts:/config
+      - ./app-data/portainer-ts:/var/lib/tailscale
+    cap_add:
+      - net_admin
+      - sys_module
+    restart: unless-stopped
+  portainer:
+    image: portainer/portainer-ce:alpine
+    container_name: portainer
+    network_mode: service:portainer-ts
+    depends_on:
+      - portainer-ts
+    restart: unless-stopped
+    volumes:
+      - ./app-data/portainer:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+  beszel-ts:
+    image: tailscale/tailscale:stable
+    container_name: beszel-ts
+    hostname: homelab-monitoring
+    environment:
+      TS_AUTHKEY: ${TS_AUTHKEY}
+      TS_SERVE_CONFIG: /config/beszel.json
+      TS_STATE_DIR: /var/lib/tailscale
+    volumes:
+      - ./app-config/beszel-ts:/config
+      - ./app-data/beszel-ts:/var/lib/tailscale
+    cap_add:
+      - net_admin
+      - sys_module
+    restart: unless-stopped
+  beszel:
+    image: henrygd/beszel:latest
+    container_name: beszel
+    network_mode: service:beszel-ts
+    restart: unless-stopped
+    volumes:
+      - ./app-data/beszel/data:/beszel_data
+      - ./app-data/beszel/socket:/beszel_socket
+  beszel-agent:
+    image: henrygd/beszel-agent:latest
+    container_name: beszel-agent
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./app-data/beszel/socket:/beszel_socket
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      LISTEN: /beszel_socket/beszel.sock
+      KEY: "${BESZEL_AGENT_KEY}"
+  blocky:
+    image: spx01/blocky:latest
+    container_name: blocky
+    restart: unless-stopped
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+    environment:
+      - TZ=America/Recife
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./app-config/blocky/config.yml:/app/config.yml:ro

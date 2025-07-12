@@ -1,0 +1,13 @@
+.PHONY: create-app-data
+create-app-data:
+	@mkdir -p app-data/vaultwarden-ts
+	@mkdir -p app-data/vaultwarden
+	@mkdir -p app-data/portainer-ts
+	@mkdir -p app-data/portainer
+	@mkdir -p app-data/beszel-ts
+	@mkdir -p app-data/beszel/data
+	@mkdir -p app-data/beszel/socket
+	
+.PHONY: remove-app-data
+remove-app-data:
+	@rm -rf app-data
