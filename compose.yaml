@@ -2,7 +2,7 @@ services:
   vaultwarden-ts:
     image: tailscale/tailscale:stable
     container_name: vaultwarden-ts
-    hostname: homelab-password
+    hostname: ${VAULTWARDEN_HOSTNAME}
     environment:
       TS_AUTHKEY: ${TS_AUTHKEY}
       TS_SERVE_CONFIG: /config/vaultwarden.json
@@ -22,13 +22,13 @@ services:
       - vaultwarden-ts
     restart: unless-stopped
     environment:
-      DOMAIN: https://homelab-password.${TS_DOMAIN}
+      DOMAIN: https://${VAULTWARDEN_HOSTNAME}.${TS_DOMAIN}
     volumes:
       - ./app-data/vaultwarden/:/data/
   portainer-ts:
     image: tailscale/tailscale:stable
     container_name: portainer-ts
-    hostname: homelab-docker
+    hostname: ${PORTAINER_HOSTNAME}
     environment:
       TS_AUTHKEY: ${TS_AUTHKEY}
       TS_SERVE_CONFIG: /config/portainer.json
@@ -53,7 +53,7 @@ services:
   beszel-ts:
     image: tailscale/tailscale:stable
     container_name: beszel-ts
-    hostname: homelab-monitoring
+    hostname: ${BESZEL_HOSTNAME}
     environment:
       TS_AUTHKEY: ${TS_AUTHKEY}
       TS_SERVE_CONFIG: /config/beszel.json
@@ -92,7 +92,7 @@ services:
       - "53:53/tcp"
       - "53:53/udp"
     environment:
-      - TZ=America/Recife
+      - TZ=${BLOCKY_TIMEZONE}
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./app-config/blocky/config.yml:/app/config.yml:ro
