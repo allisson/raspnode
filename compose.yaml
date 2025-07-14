@@ -69,6 +69,8 @@ services:
     image: henrygd/beszel:latest
     container_name: beszel
     network_mode: service:beszel-ts
+    depends_on:
+      - beszel-ts
     restart: unless-stopped
     volumes:
       - ./app-data/beszel/data:/beszel_data
@@ -97,15 +99,13 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ./app-config/blocky/config.yml:/app/config.yml:ro
   tor-proxy:
-    image: dockurr/tor:latest
+    image: leplusorg/tor:latest
     container_name: tor-proxy
+    environment:
+      SOCKS_HOSTNAME: 0.0.0.0
     restart: unless-stopped
     ports:
       - "9050:9050"
-      - "9051:9051"
-    volumes:
-      - ./app-config/tor-proxy:/etc/tor
-      - ./app-data/tor-proxy:/var/lib/tor
   bitcoin-core-ts:
     image: tailscale/tailscale:stable
     container_name: bitcoin-core-ts
@@ -123,6 +123,9 @@ services:
     image: dobtc/bitcoin:latest
     container_name: bitcoin-core
     network_mode: service:bitcoin-core-ts
+    depends_on:
+      - bitcoin-core-ts
+      - tor-proxy
     restart: unless-stopped
     volumes:
       - ./app-config/bitcoin-core/bitcoin.conf:/home/bitcoin/.bitcoin/bitcoin.conf
