@@ -78,7 +78,7 @@ Your password:
 password
 ```
 
-After changing the value in the file, restart.
+Now, stop and restart the services to load the new values from the .env file.
 
 ```bash
 docker compose stop
