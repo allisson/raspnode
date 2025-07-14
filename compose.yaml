@@ -96,3 +96,34 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./app-config/blocky/config.yml:/app/config.yml:ro
+  tor-proxy:
+    image: dockurr/tor:latest
+    container_name: tor-proxy
+    restart: unless-stopped
+    ports:
+      - "9050:9050"
+      - "9051:9051"
+    volumes:
+      - ./app-config/tor-proxy:/etc/tor
+      - ./app-data/tor-proxy:/var/lib/tor
+  bitcoin-core-ts:
+    image: tailscale/tailscale:stable
+    container_name: bitcoin-core-ts
+    hostname: ${BITCOIN_CORE_HOSTNAME}
+    environment:
+      TS_AUTHKEY: ${TS_AUTHKEY}
+      TS_STATE_DIR: /var/lib/tailscale
+    volumes:
+      - ./app-data/bitcoin-core-ts:/var/lib/tailscale
+    cap_add:
+      - net_admin
+      - sys_module
+    restart: unless-stopped
+  bitcoin-core:
+    image: dobtc/bitcoin:latest
+    container_name: bitcoin-core
+    network_mode: service:bitcoin-core-ts
+    restart: unless-stopped
+    volumes:
+      - ./app-config/bitcoin-core/bitcoin.conf:/home/bitcoin/.bitcoin/bitcoin.conf
+      - ./app-data/bitcoin-core:/home/bitcoin/.bitcoin

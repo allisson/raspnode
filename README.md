@@ -21,6 +21,8 @@ Therefore, I will keep this repository read-only. Please do not open issues or s
 - Portainer: https://github.com/portainer/portainer.
 - Beszel: https://github.com/henrygd/beszel.
 - Blocky: https://github.com/0xERR0R/blocky.
+- Tor Proxy: https://github.com/dockur/tor.
+- Bitcoin Core: https://github.com/dobtc/bitcoin.
 
 # How to use
 
@@ -62,9 +64,32 @@ docker compose up -d
 
 Now go back to the Beszel website and click "Add New System" again, filling in the "Name" as "raspnode" and the "Host / IP" as "/beszel_socket/beszel.sock".
 
+## Change the default password of bitcoin core rpc
+
+The default user and password to access the Bitcoin Core RPC are "bitcoin." 
+
+If you want to change these credentials, generate a new credential and change the value of rpcauth in the file ./app-config/bitcoin-core/bitcoin.conf.
+
+```bash
+python ./app-config/bitcoin-core/rpcaut.py username password
+String to be appended to bitcoin.conf:
+rpcauth=username:e87b62cd0e9c2066238f876f4e2c6a6a$72a7c7ef9aa3d39aada4b7a8f8f00f4775c5147deec27d62ff17d88ac2b8c043
+Your password:
+password
+```
+
+After changing the value in the file, restart.
+
+```bash
+docker compose stop
+docker compose up -d
+```
+
 ## Enjoy your HomeLab
 
 - Vaultwarden: https://homelab-password.your-tailnet-name.ts.net
 - Portainer: https://homelab-docker.your-tailnet-name.ts.net
 - Beszel: https://homelab-monitoring.your-tailnet-name.ts.net.
-- Blocky: The port 53 UDP/TCP is open to serve DNS requests, the config is located on ./app-config/blocky/config.yml.
+- Blocky: The port 53 UDP/TCP is open to serve DNS requests on your local network, the config is located on ./app-config/blocky/config.yml.
+- Tor Proxy: The port 9050 is open to proxy the requests on your local network.
+- Bitcoin Core: The ports 8332/8333/28332/28333 are open on homelab-bitcoin.your-tailnet-name.ts.net.
