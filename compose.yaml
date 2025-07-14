@@ -127,6 +127,9 @@ services:
       - bitcoin-core-ts
       - tor-proxy
     restart: unless-stopped
+    environment:
+      UID: 1000
+      GID: 1000
     volumes:
       - ./app-config/bitcoin-core/bitcoin.conf:/home/bitcoin/.bitcoin/bitcoin.conf
       - ./app-data/bitcoin-core:/home/bitcoin/.bitcoin
