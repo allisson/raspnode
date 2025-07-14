@@ -7,7 +7,6 @@ create-app-data:
 	@mkdir -p app-data/beszel-ts
 	@mkdir -p app-data/beszel/data
 	@mkdir -p app-data/beszel/socket
-	@mkdir -p app-data/tor-proxy
 	@mkdir -p app-data/bitcoin-core
 
 .PHONY: remove-app-data

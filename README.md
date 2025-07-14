@@ -21,7 +21,7 @@ Therefore, I will keep this repository read-only. Please do not open issues or s
 - Portainer: https://github.com/portainer/portainer.
 - Beszel: https://github.com/henrygd/beszel.
 - Blocky: https://github.com/0xERR0R/blocky.
-- Tor Proxy: https://github.com/dockur/tor.
+- Tor Proxy: https://github.com/leplusorg/docker-tor.
 - Bitcoin Core: https://github.com/dobtc/bitcoin.
 
 # How to use
@@ -63,6 +63,10 @@ docker compose up -d
 ```
 
 Now go back to the Beszel website and click "Add New System" again, filling in the "Name" as "raspnode" and the "Host / IP" as "/beszel_socket/beszel.sock".
+
+## Fix Beszel memory stats in Docker
+
+Follow these instructions https://akashrajpurohit.com/blog/resolving-missing-memory-stats-in-docker-stats-on-raspberry-pi/.
 
 ## Change the default password of bitcoin core rpc
 
