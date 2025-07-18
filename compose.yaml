@@ -133,3 +133,32 @@ services:
     volumes:
       - ./app-config/bitcoin-core/bitcoin.conf:/home/bitcoin/.bitcoin/bitcoin.conf
       - ./app-data/bitcoin-core:/home/bitcoin/.bitcoin
+  n8n-ts:
+    image: tailscale/tailscale:stable
+    container_name: n8n-ts
+    hostname: ${N8N_HOSTNAME}
+    environment:
+      TS_AUTHKEY: ${TS_AUTHKEY}
+      TS_SERVE_CONFIG: /config/n8n.json
+      TS_STATE_DIR: /var/lib/tailscale
+    volumes:
+      - ./app-config/n8n-ts:/config
+      - ./app-data/n8n-ts:/var/lib/tailscale
+    cap_add:
+      - net_admin
+      - sys_module
+    restart: unless-stopped
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    container_name: n8n
+    network_mode: service:n8n-ts
+    depends_on:
+      - n8n-ts
+    restart: unless-stopped
+    environment:
+      GENERIC_TIMEZONE: ${N8N_GENERIC_TIMEZONE}
+      TZ: ${N8N_TZ}
+      N8N_RUNNERS_ENABLED: true
+      N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: true
+    volumes:
+      - ./app-data/n8n:/home/node/.n8n
