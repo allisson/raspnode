@@ -160,5 +160,8 @@ services:
       TZ: ${N8N_TZ}
       N8N_RUNNERS_ENABLED: true
       N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: true
+      N8N_PROTOCOL: https
+      N8N_HOST: ${N8N_HOSTNAME}.${TS_DOMAIN}
+      N8N_PORT: 443
     volumes:
       - ./app-data/n8n:/home/node/.n8n
