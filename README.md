@@ -51,7 +51,7 @@ docker compose up -d
 
 ## Open the Beszel service to get the value for the BESZEL_AGENT_KEY variable
 
-If you have not changed the value of the BESZEL_HOSTNAME variable, the address should be https://homelab-monitoring.your-tailnet-name.ts.net.
+If you have not changed the value of the BESZEL_HOSTNAME variable, the address should be https://beszel.your-tailnet-name.ts.net.
 
 Create the administrator account, and after logging in, click on "Add New System" and copy the value of the "Public Key" field in the BESZEL_AGENT_KEY variable in the .env file.
 
@@ -91,9 +91,9 @@ docker compose up -d
 
 ## Enjoy your HomeLab
 
-- Vaultwarden: https://homelab-password.your-tailnet-name.ts.net
-- Portainer: https://homelab-docker.your-tailnet-name.ts.net
-- Beszel: https://homelab-monitoring.your-tailnet-name.ts.net.
+- Vaultwarden: https://vaultwarden.your-tailnet-name.ts.net
+- Portainer: https://portainer.your-tailnet-name.ts.net
+- Beszel: https://beszel.your-tailnet-name.ts.net.
 - Blocky: The port 53 UDP/TCP is open to serve DNS requests on your local network, the config is located on ./app-config/blocky/config.yml.
-- Bitcoin Core: The ports 8332/8333/28332/28333 are open on homelab-bitcoin.your-tailnet-name.ts.net.
-- N8N: https://homelab-automation.your-tailnet-name.ts.net.
+- Bitcoin Core: The ports 8332/8333/28332/28333 are open on bitcoin.your-tailnet-name.ts.net.
+- N8N: https://n8n.your-tailnet-name.ts.net.
