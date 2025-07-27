@@ -98,14 +98,6 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./app-config/blocky/config.yml:/app/config.yml:ro
-  tor-proxy:
-    image: leplusorg/tor:latest
-    container_name: tor-proxy
-    environment:
-      SOCKS_HOSTNAME: 0.0.0.0
-    restart: unless-stopped
-    ports:
-      - "9050:9050"
   bitcoin-core-ts:
     image: tailscale/tailscale:stable
     container_name: bitcoin-core-ts
@@ -125,7 +117,6 @@ services:
     network_mode: service:bitcoin-core-ts
     depends_on:
       - bitcoin-core-ts
-      - tor-proxy
     restart: unless-stopped
     environment:
       UID: 1000

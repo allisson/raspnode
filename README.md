@@ -21,7 +21,6 @@ Therefore, I will keep this repository read-only. Please do not open issues or s
 - Portainer: https://github.com/portainer/portainer.
 - Beszel: https://github.com/henrygd/beszel.
 - Blocky: https://github.com/0xERR0R/blocky.
-- Tor Proxy: https://github.com/leplusorg/docker-tor.
 - Bitcoin Core: https://github.com/dobtc/bitcoin.
 - N8N: https://github.com/n8n-io/n8n.
 
@@ -96,6 +95,5 @@ docker compose up -d
 - Portainer: https://homelab-docker.your-tailnet-name.ts.net
 - Beszel: https://homelab-monitoring.your-tailnet-name.ts.net.
 - Blocky: The port 53 UDP/TCP is open to serve DNS requests on your local network, the config is located on ./app-config/blocky/config.yml.
-- Tor Proxy: The port 9050 is open to proxy the requests on your local network.
 - Bitcoin Core: The ports 8332/8333/28332/28333 are open on homelab-bitcoin.your-tailnet-name.ts.net.
 - N8N: https://homelab-automation.your-tailnet-name.ts.net.
