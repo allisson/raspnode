@@ -11,6 +11,9 @@ create-app-data:
 	@mkdir -p app-data/bitcoin-core
 	@mkdir -p app-data/n8n-ts
 	@mkdir -p app-data/n8n
+	@mkdir -p app-data/duplicati-ts
+	@mkdir -p app-data/duplicati/config
+	@mkdir -p app-data/duplicati/backups
 
 .PHONY: remove-app-data
 remove-app-data:

@@ -23,6 +23,7 @@ Therefore, I will keep this repository read-only. Please do not open issues or s
 - Blocky: https://github.com/0xERR0R/blocky.
 - Bitcoin Core: https://github.com/dobtc/bitcoin.
 - N8N: https://github.com/n8n-io/n8n.
+- Duplicati: https://github.com/duplicati/duplicati.
 
 # How to use
 
@@ -97,3 +98,4 @@ docker compose up -d
 - Blocky: The port 53 UDP/TCP is open to serve DNS requests on your local network, the config is located on ./app-config/blocky/config.yml.
 - Bitcoin Core: The ports 8332/8333/28332/28333 are open on bitcoin.your-tailnet-name.ts.net.
 - N8N: https://n8n.your-tailnet-name.ts.net.
+- Duplicati: https://duplicati.your-tailnet-name.ts.net.

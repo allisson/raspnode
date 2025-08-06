@@ -158,3 +158,34 @@ services:
       WEBHOOK_URL: https://${N8N_HOSTNAME}.${TS_DOMAIN}/
     volumes:
       - ./app-data/n8n:/home/node/.n8n
+  duplicati-ts:
+    image: tailscale/tailscale:stable
+    container_name: duplicati-ts
+    hostname: ${DUPLICATI_HOSTNAME}
+    environment:
+      TS_AUTHKEY: ${TS_AUTHKEY}
+      TS_SERVE_CONFIG: /config/duplicati.json
+      TS_STATE_DIR: /var/lib/tailscale
+    volumes:
+      - ./app-config/duplicati-ts:/config
+      - ./app-data/duplicati-ts:/var/lib/tailscale
+    cap_add:
+      - net_admin
+      - sys_module
+    restart: unless-stopped
+  duplicati:
+    image: lscr.io/linuxserver/duplicati:latest
+    container_name: duplicati
+    network_mode: service:duplicati-ts
+    depends_on:
+      - duplicati-ts
+    restart: unless-stopped
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: ${DUPLICATI_TZ}
+      SETTINGS_ENCRYPTION_KEY: ${DUPLICATI_ENCRYPTION_KEY}
+    volumes:
+      - ./app-data/duplicati/config:/config
+      - ./app-data/duplicati/backups:/backups
+      - ./:/source
