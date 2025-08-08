@@ -1,15 +1,8 @@
 upstreams:
   groups:
     default:
-      - https://dns.cloudflare.com/dns-query
-      - https://dns.quad9.net/dns-query
-blocking:
-  denylists:
-    ads:
-      - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/porn/hosts
-  clientGroupsBlock:
-    default:
-      - ads
+      - https://family.cloudflare-dns.com/dns-query
+      - https://doh.familyshield.opendns.com/dns-query
 ports:
   dns: 53
   http: 4000
