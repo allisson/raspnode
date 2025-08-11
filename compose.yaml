@@ -98,32 +98,32 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./app-config/blocky/config.yml:/app/config.yml:ro
-  bitcoin-core-ts:
+  bitcoin-knots-ts:
     image: tailscale/tailscale:stable
-    container_name: bitcoin-core-ts
-    hostname: ${BITCOIN_CORE_HOSTNAME}
+    container_name: bitcoin-knots-ts
+    hostname: ${BITCOIN_KNOTS_HOSTNAME}
     environment:
       TS_AUTHKEY: ${TS_AUTHKEY}
       TS_STATE_DIR: /var/lib/tailscale
     volumes:
-      - ./app-data/bitcoin-core-ts:/var/lib/tailscale
+      - ./app-data/bitcoin-knots-ts:/var/lib/tailscale
     cap_add:
       - net_admin
       - sys_module
     restart: unless-stopped
-  bitcoin-core:
-    image: dobtc/bitcoin:latest
-    container_name: bitcoin-core
-    network_mode: service:bitcoin-core-ts
+  bitcoin-knots:
+    image: bitcoinknots/bitcoin:latest
+    container_name: bitcoin-knots
+    network_mode: service:bitcoin-knots-ts
     depends_on:
-      - bitcoin-core-ts
+      - bitcoin-knots-ts
     restart: unless-stopped
     environment:
       UID: 1000
       GID: 1000
     volumes:
-      - ./app-config/bitcoin-core/bitcoin.conf:/home/bitcoin/.bitcoin/bitcoin.conf
-      - ./app-data/bitcoin-core:/home/bitcoin/.bitcoin
+      - ./app-config/bitcoin-knots/bitcoin.conf:/home/bitcoin/.bitcoin/bitcoin.conf
+      - ./app-data/bitcoin-knots:/home/bitcoin/.bitcoin
   n8n-ts:
     image: tailscale/tailscale:stable
     container_name: n8n-ts

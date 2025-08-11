@@ -21,7 +21,7 @@ Therefore, I will keep this repository read-only. Please do not open issues or s
 - Portainer: https://github.com/portainer/portainer.
 - Beszel: https://github.com/henrygd/beszel.
 - Blocky: https://github.com/0xERR0R/blocky.
-- Bitcoin Core: https://github.com/dobtc/bitcoin.
+- Bitcoin Knots: https://github.com/bitcoinknots/bitcoin.
 - N8N: https://github.com/n8n-io/n8n.
 - Duplicati: https://github.com/duplicati/duplicati.
 
@@ -69,11 +69,11 @@ Now go back to the Beszel website and click "Add New System" again, filling in t
 
 Follow these instructions https://akashrajpurohit.com/blog/resolving-missing-memory-stats-in-docker-stats-on-raspberry-pi/.
 
-## Change the default password of bitcoin core rpc
+## Change the default password of bitcoin knots rpc
 
-The default user and password to access the Bitcoin Core RPC are "bitcoin." 
+The default user and password to access the Bitcoin Knots RPC are "bitcoin." 
 
-If you want to change these credentials, generate a new credential and change the value of rpcauth in the file ./app-config/bitcoin-core/bitcoin.conf.
+If you want to change these credentials, generate a new credential and change the value of rpcauth in the file ./app-config/bitcoin-knots/bitcoin.conf.
 
 ```bash
 python ./app-config/bitcoin-core/rpcaut.py username password
@@ -96,6 +96,6 @@ docker compose up -d
 - Portainer: https://portainer.your-tailnet-name.ts.net
 - Beszel: https://beszel.your-tailnet-name.ts.net.
 - Blocky: The port 53 UDP/TCP is open to serve DNS requests on your local network, the config is located on ./app-config/blocky/config.yml.
-- Bitcoin Core: The ports 8332/8333/28332/28333 are open on bitcoin.your-tailnet-name.ts.net.
+- Bitcoin Knots: The ports 8332/8333/28332/28333 are open on bitcoin.your-tailnet-name.ts.net.
 - N8N: https://n8n.your-tailnet-name.ts.net.
 - Duplicati: https://duplicati.your-tailnet-name.ts.net.
