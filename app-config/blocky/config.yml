@@ -1,8 +1,8 @@
 upstreams:
   groups:
     default:
-      - https://family.cloudflare-dns.com/dns-query
-      - https://doh.familyshield.opendns.com/dns-query
+      - https://dns.cloudflare.com/dns-query
+      - https://dns.google/dns-query
 ports:
   dns: 53
   http: 4000
